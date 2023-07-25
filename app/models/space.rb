@@ -1,3 +1,3 @@
-class Space
+class Spaces < ActiveRecord::Base
 
 end

@@ -1,3 +1,3 @@
-class Order
+class Orders < ActiveRecord::Base
 
 end
