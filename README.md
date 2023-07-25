@@ -15,7 +15,7 @@ Developing an app that helps the companies that are involved with renting shelf 
 
 ## Minimum Viable Product (MVP)
 
-The shop owner can save a customer's order when provide rented shelf space. 
+The shop owner can save a customer's order when providing rented shelf space. 
 
 ## Tools:
 - Ruby
