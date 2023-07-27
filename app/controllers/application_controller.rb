@@ -212,9 +212,8 @@ class ApplicationController < Sinatra::Base
       return data
     end
   end
-
     
-  # Customer table POST
+  # Space table POST
   # Create Route for making a new entry in the table
   ['/space', '/spaces', '/space/', '/spaces/', '/Space', '/Spaces', '/Space/', '/Spaces/'].each do |path|
     post path do
@@ -222,7 +221,7 @@ class ApplicationController < Sinatra::Base
       body = getBody(request)
   
       # create the new item
-      customer = Space.create(
+      space = Space.create(
         name: body['name'],
         phone_no: body['phone_no'],
         id_number: body['id_number'],
@@ -234,7 +233,7 @@ class ApplicationController < Sinatra::Base
       )
   
       # return the new item
-      return customer.to_json
+      return space.to_json
       end
     end
 
