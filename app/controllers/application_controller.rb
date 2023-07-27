@@ -17,7 +17,7 @@ class ApplicationController < Sinatra::Base
   # route to get all items from a data table
   ['/customer', '/customers', '/customer/', '/customers/', '/Customer', '/Customers', '/Customer/', '/Customers/'].each do |path|
     get path do
-      dbCustomer = Customers.all
+      dbCustomer = Customer.all
       data = dbCustomer.all.to_json
       puts "Received request for #{path}"
       puts "Data: #{data}"
@@ -28,7 +28,7 @@ class ApplicationController < Sinatra::Base
   ## single route which converts id to an integer before returning the result
   ['/customer/:id', '/customers/:id', '/Customer/:id', '/Customers/:id'].each do |path|
     get path do
-      dbCustomer = Customers.all
+      dbCustomer = Customer.all
       id = params["id"].to_i 
       return dbCustomer[id].to_json
     end
@@ -42,7 +42,7 @@ class ApplicationController < Sinatra::Base
     body = getBody(request)
 
     # create the new item
-    customer = Customers.create(
+    customer = Customer.create(
       name: body['name'],
       phone_no: body['phone_no'],
       id_number: body['id_number'],
@@ -64,7 +64,7 @@ class ApplicationController < Sinatra::Base
       
       # get the id from the array
       id = params['id'].to_i
-      customer = Customers.find(id)
+      customer = Customer.find(id)
 
       # get the request body
       body = getBody(request)
@@ -93,7 +93,7 @@ class ApplicationController < Sinatra::Base
       id = params["id"].to_i
 
       # choose the item needed for deletion
-      customer = Customers.find(id)
+      customer = Customer.find(id)
 
       # delete the item
       customer.destroy
@@ -106,7 +106,7 @@ class ApplicationController < Sinatra::Base
   # route to get all items from the Order table
   ['/order', '/orders', '/order/', '/orders/', '/Order', '/Orders', '/Order/', '/Orders/'].each do |path|
     get path do
-      dbOrder = Orders.all
+      dbOrder = Order.all
       data = dbOrder.all.to_json
       puts "Received request for #{path}"
       puts "Data: #{data}"
@@ -117,7 +117,7 @@ class ApplicationController < Sinatra::Base
   ## single route which converts id to an integer before returning the result
   ['/order/:id', '/orders/:id', '/Order/:id', '/Orders/:id'].each do |path|
     get path do
-      dbOrder = Orders.all
+      dbOrder = Order.all
       id = params["id"].to_i 
       data = dbOrder[id].to_json
       puts "Received request for #{path} at position #{id}"
@@ -134,7 +134,8 @@ class ApplicationController < Sinatra::Base
       body = getBody(request)
   
       # create the new item
-      order = Orders.create(
+      order = Order.create(
+        order_id: rand(1000) + 1,
         name: body['name'],
         status: body['status'],
         quantity: body['quantity'],
@@ -153,7 +154,7 @@ class ApplicationController < Sinatra::Base
       
       # get the id from the array
       id = params['id'].to_i
-      order = Orders.find(id)
+      order = Order.find(id)
 
       # get the request body
       body = getBody(request)
@@ -179,20 +180,20 @@ class ApplicationController < Sinatra::Base
       id = params["id"].to_i
 
       # choose the item needed for deletion
-      order = Orders.find(id)
+      order = Order.find(id)
 
       # delete the item
       order.destroy
       
       # return a success message or status
-      { status: 'success', message: 'Customer deleted successfully' }.to_json
+      { status: 'success', message: 'Order deleted successfully' }.to_json
     end
   end
 
   # route to get all items from the Spaces table
   ['/space', '/spaces', '/space/', '/spaces/', '/Space', '/Spaces', '/Space/', '/Spaces/'].each do |path|
     get path do
-      dbSpace = Spaces.all
+      dbSpace = Space.all
       data = dbSpace.all.to_json
       puts "Received request for #{path}"
       puts "Data: #{data}"
@@ -203,7 +204,7 @@ class ApplicationController < Sinatra::Base
   ## single route which converts id to an integer before returning the result
   ['/space/:id', '/spaces/:id', '/Space/:id', '/Spaces/:id'].each do |path|
     get path do
-      dbSpace = Spaces.all
+      dbSpace = Space.all
       id = params["id"].to_i 
       data = dbSpace[id].to_json
       puts "Received request for #{path} at position #{id}"
@@ -212,13 +213,38 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+    
+  # Customer table POST
+  # Create Route for making a new entry in the table
+  ['/space', '/spaces', '/space/', '/spaces/', '/Space', '/Spaces', '/Space/', '/Spaces/'].each do |path|
+    post path do
+      # Pass the request into the custom getBody function
+      body = getBody(request)
+  
+      # create the new item
+      customer = Space.create(
+        name: body['name'],
+        phone_no: body['phone_no'],
+        id_number: body['id_number'],
+        email_address: body['email_address'],
+        local_address: body['local_address'],
+        po_box: body['po_box'],
+        county: body['county'],
+        city: body['city']
+      )
+  
+      # return the new item
+      return customer.to_json
+      end
+    end
+
   ## Space table Update Route PUT or PATCH
   ['/space/:id', '/spaces/:id', '/Space/:id', '/Spaces/:id'].each do |path|
     put path do
       
       # get the id from the array
       id = params['id'].to_i
-      space = Spaces.find(id)
+      space = Space.find(id)
 
       # get the request body
       body = getBody(request)
@@ -248,13 +274,13 @@ class ApplicationController < Sinatra::Base
       id = params["id"].to_i
 
       # choose the item needed for deletion
-      space = Spaces.find(id)
+      space = Space.find(id)
 
       # delete the item
       space.destroy
       
       # return a success message or status
-      { status: 'success', message: 'Customer deleted successfully' }.to_json
+      { status: 'success', message: 'Space deleted successfully' }.to_json
     end
   end
 
