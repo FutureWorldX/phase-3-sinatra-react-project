@@ -3,7 +3,7 @@ puts "🌱 Seeding spices..."
 # Seed your database here
 
 # Seed data for Customer table
-Customers.create!(
+customer1 = Customer.create!(
   name: "John Doe",
   phone_no: 12345,
   id_number: 12345,
@@ -15,15 +15,17 @@ Customers.create!(
 )
 
 # Seed data for Order table
-Orders.create!(
-  name: "Sample Order",
+order1 = customer1.orders.create!(
+  order_id: rand(1000) + 1,
+  name: "Sample Order 1",
   status: "Occupied",
   quantity: 5,
   price: 100,
-  description: "Sample order description"
+  description: "Sample order description 1"
 )
 
-Spaces.create!(
+space1 = Space.create!(
+  space_id: rand(1000) + 1,
   space_type: "Standard",
   size: "Medium",
   style: "Modern",
@@ -36,7 +38,7 @@ Spaces.create!(
 )
 
 # Seed data for Customer table
-Customers.create!(
+customer2 = Customer.create!(
   name: "Jane Doe",
   phone_no: 123456,
   id_number: 123456,
@@ -48,15 +50,17 @@ Customers.create!(
 )
 
 # Seed data for Order table
-Orders.create!(
-  name: "Sample Order",
+order2 = customer2.orders.create!(
+  order_id: rand(1000) + 1,
+  name: "Sample Order 2",
   status: "Occupied",
   quantity: 5,
   price: 100,
-  description: "Sample order description"
+  description: "Sample order description 2"
 )
 
-Spaces.create!(
+space2 = Space.create!(
+  space_id: rand(1000) + 1,
   space_type: "Deluxe",
   size: "Large",
   style: "Modern",
@@ -67,5 +71,9 @@ Spaces.create!(
   location: "Business District",
   description: "Large-sized modern shelf space"
 )
+
+# Link the orders to the customers
+customer1.orders << order1
+customer2.orders << order2
 
 puts "✅ Done seeding!"

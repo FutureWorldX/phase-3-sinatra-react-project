@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_26_135200) do
+ActiveRecord::Schema.define(version: 2023_07_26_135216) do
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
@@ -34,9 +34,6 @@ ActiveRecord::Schema.define(version: 2023_07_26_135200) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "customer_id"
-    t.integer "space_id"
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
-    t.index ["space_id"], name: "index_orders_on_space_id"
   end
 
   create_table "spaces", force: :cascade do |t|
@@ -54,5 +51,4 @@ ActiveRecord::Schema.define(version: 2023_07_26_135200) do
   end
 
   add_foreign_key "orders", "customers"
-  add_foreign_key "orders", "spaces"
 end
